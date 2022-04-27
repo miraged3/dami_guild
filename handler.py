@@ -3,14 +3,11 @@
 import asyncio
 import base64
 import json
-import logging
 import os.path
 import shutil
 
-import numpy as np
 import qqbot
 import requests
-from PIL import Image
 from qqbot.core.util.yaml_util import YamlUtil
 
 from image_util import stitch_image
