@@ -54,13 +54,13 @@ async def at_message_handler(event, message: qqbot.Message):
         return
 
     # 每日一句查询
-    if message.content.startswith(f'<@!{api.me().id}> /每日一句:'):
+    if message.content.startswith(f'<@!{api.me().id}> /每日一句'):
         response = requests.get("https://open.iciba.com/dsapi/")
         english_data = json.loads(response.content)
         await asyncio.sleep(1)
         # 构造消息发送请求数据对象
         send = qqbot.MessageSendRequest(
-            f'{english_data.get("dateline")} 每日一句\n{english_data.get("content")}\n{english_data.get("note")}',
+            f'{english_data.get("dateline")} 每日一句:\n{english_data.get("content")}\n{english_data.get("note")}',
             message.id)
         # 通过api发送回复消息
         await msg_api.post_message(message.channel_id, send)
