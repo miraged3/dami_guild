@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import asyncio
-import base64
-import json
 import os.path
-import shutil
 
 import qqbot
-import requests
 from qqbot.core.util.yaml_util import YamlUtil
 
-from image_util import stitch_image
-from onmyoji import summon, summon_one, summon_ten
 from service.english import daily
 from service.image import search
 
