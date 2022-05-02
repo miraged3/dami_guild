@@ -1,4 +1,8 @@
-# test yaml 用于设置test相关的参数，开源版本需要去掉参数
 token:
-  appid: "123"
-  token: "xxxx"
+  appid: "321"
+  token: "123"
+mysql:
+  address: "localhost:3306"
+  user: "root"
+  password: "12345678"
+  database: "dami_guild"
