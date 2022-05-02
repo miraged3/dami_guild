@@ -1,8 +1,9 @@
 token:
-  appid: "321"
+  appid: "123"
   token: "123"
 mysql:
-  address: "localhost:3306"
+  address: "localhost"
+  port: 3306
   user: "root"
   password: "12345678"
   database: "dami_guild"

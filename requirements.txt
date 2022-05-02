@@ -1,3 +1,4 @@
 pillow
 qq-bot
 requests
+PyMySQL
