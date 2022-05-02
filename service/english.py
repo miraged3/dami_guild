@@ -14,5 +14,5 @@ def daily(message: qqbot.Message) -> MessageSendRequest:
     response = requests.get("https://open.iciba.com/dsapi/")
     english_data = json.loads(response.content)
     return qqbot.MessageSendRequest(
-        f'{english_data.get("dateline")} 每日一句\n{english_data.get("content")}\n{english_data.get("note")}',
+        f'{english_data.get("dateline")} 每日一句：\n{english_data.get("content")}\n{english_data.get("note")}',
         message.id)

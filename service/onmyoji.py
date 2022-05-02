@@ -4,7 +4,7 @@ import shutil
 
 import qqbot
 
-from image_util import stitch_image
+from util.image import stitch_image
 
 path = '/usr/local/dami/res/'
 
