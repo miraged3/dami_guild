@@ -34,7 +34,7 @@ def check_dragon_exists(user_id: str) -> bool:
     cursor = conn.cursor()
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     sql_check_user = f"""
-    select * from dragon where user_id='{user_id}'and date='{current_date}'；
+    select * from dragon where user_id='{user_id}'and date='{current_date}';
     """
     cursor.execute(sql_check_user)
     conn.commit()
