@@ -5,6 +5,7 @@ import os.path
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
+from service.coin import coin_have
 from service.divine import divine
 from service.dragon import count_speak
 from service.english import daily
@@ -22,7 +23,10 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
+    qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
     count_speak(message)
+    # TODO: 回复随机发放金币
+    return
 
 
 async def at_message_handler(event, message: qqbot.Message):
@@ -43,6 +47,11 @@ async def at_message_handler(event, message: qqbot.Message):
     # 每日一句查询
     if message.content.startswith(f'<@!{api.me().id}> /每日一句'):
         await msg_api.post_message(message.channel_id, daily(message))
+        return
+
+    # 金币查询
+    if message.content.startswith(f'<@!{api.me().id}> /查询'):
+        await msg_api.post_message(message.channel_id, coin_have(message))
         return
 
     # 占卜/签到

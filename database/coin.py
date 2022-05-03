@@ -51,3 +51,17 @@ def add_coin_change(user_id: str, amount: int, reason: str):
     cursor.execute(sql_add_coin_change)
     conn.commit()
     cursor.close()
+
+
+# 金币查询
+def coin_inquiry(user_id: str):
+    conn.ping(reconnect=True)
+    cursor = conn.cursor()
+    sql_coin_inquiry = f"""
+    select number from coin where user_id='{user_id}';
+    """
+    cursor.execute(sql_coin_inquiry)
+    conn.commit()
+    coin = cursor.fetchall()[0][0]
+    cursor.close()
+    return coin
