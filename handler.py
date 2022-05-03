@@ -21,7 +21,7 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    pass
+    # TODO: 龙王统计
 
 
 async def at_message_handler(event, message: qqbot.Message):
