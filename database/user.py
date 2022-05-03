@@ -1,7 +1,7 @@
 import datetime
 import os
 
-import pymysql as pymysql
+import pymysql
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
@@ -15,28 +15,39 @@ conn = pymysql.connect(
     charset='utf8')
 
 
-# 今日占卜
-def add_divine_today(user_id: str, luck: int, add_coin: int):
+# 添加成员信息
+def add_user_info(user_id: str, user_name: str, user_avatar: str, is_bot: bool):
     conn.ping(reconnect=True)
     cursor = conn.cursor()
-    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    sql_add_divine = f"""
-    insert into divine (date, luck, user_id, add_coin) values ('{current_date}','{luck}','{user_id}','{add_coin}');
+    sql_add_user = f"""
+    insert into user(number, name, avatar, bot) values ('{user_id}','{user_name}','{user_avatar}',{is_bot});
     """
-    cursor.execute(sql_add_divine)
+    cursor.execute(sql_add_user)
     conn.commit()
     cursor.close()
 
 
-# 查询今日是否已占卜
-def check_divine_today(user_id: str) -> bool:
+# 获取成员名称
+def get_user_name(user_id: str):
     conn.ping(reconnect=True)
     cursor = conn.cursor()
-    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     sql_check_divine = f"""
-    select * from divine where user_id='{user_id}' and date='{current_date}';
+    select name from user where number='{user_id}';
     """
     cursor.execute(sql_check_divine)
+    conn.commit()
+    return cursor.fetchall()[0][0]
+
+
+# 检查用户是否存在
+def check_user_exists(user_id: str) -> bool:
+    conn.ping(reconnect=True)
+    cursor = conn.cursor()
+    sql_check_user = f"""
+    select * from user where number='{user_id}';
+    """
+    cursor.execute(sql_check_user)
+    conn.commit()
     if len(cursor.fetchall()) != 0:
         cursor.close()
         return True

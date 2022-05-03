@@ -6,6 +6,7 @@ import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
 from service.divine import divine
+from service.dragon import count_speak
 from service.english import daily
 from service.image import search
 from service.summon import summon, ranking, inquire
@@ -21,7 +22,7 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    # TODO: 龙王统计
+    count_speak(message)
 
 
 async def at_message_handler(event, message: qqbot.Message):

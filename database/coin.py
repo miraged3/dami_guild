@@ -17,6 +17,7 @@ conn = pymysql.connect(
 
 # 增加金币
 def add_coin(user_id: str, number: int, reason: str):
+    conn.ping(reconnect=True)
     cursor = conn.cursor()
     sql_check_user = f"""
     select number from coin where user_id='{user_id}';
@@ -41,6 +42,7 @@ def add_coin(user_id: str, number: int, reason: str):
 
 # 增加金币记录
 def add_coin_change(user_id: str, amount: int, reason: str):
+    conn.ping(reconnect=True)
     cursor = conn.cursor()
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sql_add_coin_change = f"""

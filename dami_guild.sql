@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 03/05/2022 01:42:35
+ Date: 04/05/2022 00:56:20
 */
 
 SET NAMES utf8mb4;
@@ -87,6 +87,18 @@ CREATE TABLE `divine`  (
   `add_coin` int(11) NULL DEFAULT NULL COMMENT '获得的金币',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '占卜' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for dragon
+-- ----------------------------
+DROP TABLE IF EXISTS `dragon`;
+CREATE TABLE `dragon`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `speak_count` int(11) NULL DEFAULT NULL COMMENT '发言次数',
+  `date` date NULL DEFAULT NULL COMMENT '日期',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for guild

@@ -1,8 +1,7 @@
 import random
 
 import qqbot
-from qqbot import MessageSendRequest, Emoji
-from qqbot.model.emoji import EmojiType
+from qqbot import MessageSendRequest
 
 from database import coin
 from database.divine import check_divine_today, add_divine_today
