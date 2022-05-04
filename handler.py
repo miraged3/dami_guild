@@ -11,7 +11,7 @@ from service.divine import divine
 from service.dragon import count_speak
 from service.english import daily
 from service.image import search
-from service.summon import summon, ranking, inquire
+from service.summon import summon, ranking, inquire, add
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
@@ -24,9 +24,11 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    # TODO: 疯狂星期四提醒
+    # TODO:疯狂星期四提醒
+    if message.guild_id == '1010148535400755610':
+        return
     msg_api = qqbot.AsyncMessageAPI(token, False)
-    if message.content is not None:
+    if None is not message.content:
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
     count_speak(message)
     if random.randint(1, 100) == 50:
@@ -40,6 +42,8 @@ async def at_message_handler(event, message: qqbot.Message):
     :param event: 事件类型
     :param message: 事件对象（如监听消息是Message对象）
     """
+    if message.guild_id == '1010148535400755610':
+        return
     msg_api = qqbot.AsyncMessageAPI(token, False)
     if message.content is not None:
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
@@ -78,4 +82,15 @@ async def at_message_handler(event, message: qqbot.Message):
     # 排行榜
     if message.content.startswith(f'<@!{api.me().id}> /排行榜'):
         await msg_api.post_message(message.channel_id, ranking(message))
+        return
+
+    # 增加卡池
+    if message.content.startswith(f'<@!{api.me().id}> /add_card'):
+        await msg_api.post_message(message.channel_id, add(message))
+
+    # 获取当前频道id
+    if message.content.startswith(f'<@!{api.me().id}> /get_current_id'):
+        send = qqbot.MessageSendRequest(
+            f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
+        await msg_api.post_message(message.channel_id, send)
         return

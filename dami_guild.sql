@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 04/05/2022 00:56:20
+ Date: 04/05/2022 21:27:31
 */
 
 SET NAMES utf8mb4;
@@ -97,6 +97,7 @@ CREATE TABLE `dragon`  (
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
   `speak_count` int(11) NULL DEFAULT NULL COMMENT '发言次数',
   `date` date NULL DEFAULT NULL COMMENT '日期',
+  `get_coin` tinyint(1) NULL DEFAULT NULL COMMENT '是否允许通过发言掉落金币',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -132,6 +133,17 @@ CREATE TABLE `member`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for point
+-- ----------------------------
+DROP TABLE IF EXISTS `point`;
+CREATE TABLE `point`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `point` int(11) NULL DEFAULT NULL COMMENT '积分',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -150,14 +162,15 @@ CREATE TABLE `role`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `summon`;
 CREATE TABLE `summon`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `time` datetime NULL DEFAULT NULL COMMENT '召唤时间',
   `used_coin` int(11) NULL DEFAULT NULL COMMENT '使用的金币',
   `card_id` int(11) NULL DEFAULT NULL COMMENT '召唤到的卡',
   `card_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '召唤到的卡的名字',
-  `left_coin` int(11) NULL DEFAULT NULL COMMENT '剩余的金币',
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+  `card_star` tinyint(1) NULL DEFAULT NULL COMMENT '稀有度',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
