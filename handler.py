@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os.path
+import random
 
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
-from service.coin import coin_have
+from service.coin import coin_have, random_add_coin
 from service.divine import divine
 from service.dragon import count_speak
 from service.english import daily
@@ -23,9 +24,13 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
+    # TODO: 疯狂星期四提醒
+    msg_api = qqbot.AsyncMessageAPI(token, False)
+    if message.content is not None:
+        qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
     count_speak(message)
-    # TODO: 回复随机发放金币
+    if random.randint(1, 100) == 50:
+        await msg_api.post_message(message.channel_id, random_add_coin(message))
     return
 
 
@@ -36,7 +41,8 @@ async def at_message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     """
     msg_api = qqbot.AsyncMessageAPI(token, False)
-    qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
+    if message.content is not None:
+        qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
     api = qqbot.UserAPI(token, False)
 
     # 图片查询
