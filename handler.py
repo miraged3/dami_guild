@@ -25,8 +25,6 @@ async def message_handler(event, message: qqbot.Message):
     :return:
     """
     # TODO:疯狂星期四提醒
-    if message.guild_id == '1010148535400755610':
-        return
     msg_api = qqbot.AsyncMessageAPI(token, False)
     if None is not message.content:
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
@@ -42,8 +40,6 @@ async def at_message_handler(event, message: qqbot.Message):
     :param event: 事件类型
     :param message: 事件对象（如监听消息是Message对象）
     """
-    if message.guild_id == '1010148535400755610':
-        return
     msg_api = qqbot.AsyncMessageAPI(token, False)
     if message.content is not None:
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
