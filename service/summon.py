@@ -5,14 +5,16 @@ import qqbot
 from qqbot import MessageSendRequest
 
 from database.card import add_card, delete_card, get_all_cards
-from database.coin import add_coin
+from database.coin import add_coin, coin_inquiry
 from database.point import top_point, add_point
 from database.summon import add_summon, already_summon
 from database.user import get_user_name
 
 
 def summon(message: qqbot.Message) -> MessageSendRequest:
-    used_coin = 5
+    used_coin = -5
+    if coin_inquiry(message.author.id) < abs(used_coin):
+        return qqbot.MessageSendRequest(f"<@{message.author.id}>召唤一次要{used_coin}金币，你余额已经不够啦~~", message.id)
     chance = random.randint(1, 100)
     if chance > 85:
         star = 5
