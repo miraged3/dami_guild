@@ -4,7 +4,6 @@ import qqbot
 from qqbot import MessageReference
 
 from database.coin import coin_inquiry, add_coin
-
 from database.dragon import dragon_get_coin
 
 
@@ -25,7 +24,7 @@ def check_get_coin(message: qqbot.Message) -> bool:
 def random_add_coin(message: qqbot.Message):
     message_reference = MessageReference()
     message_reference.message_id = message.id
-    salt = random.randint(1, 8)
+    salt = random.randint(1, 10)
     reason = '发言随机金币'
     if salt == 1:
         coin = random.randint(1, 3)
@@ -67,3 +66,7 @@ def random_add_coin(message: qqbot.Message):
         coin = random.randint(1, 3)
         add_coin(message.author.id, coin, reason)
         return qqbot.MessageSendRequest(f"你看天上那朵云，像不像我现在送你的{coin}金币?", message.id, message_reference=message_reference)
+    elif salt == 11:
+        coin = random.randint(1, 3)
+        add_coin(message.author.id, coin, reason)
+        return qqbot.MessageSendRequest(f"你好，请问你需要{coin}金币吗? 送你了！", message.id, message_reference=message_reference)

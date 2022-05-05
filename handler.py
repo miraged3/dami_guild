@@ -35,7 +35,7 @@ async def message_handler(event, message: qqbot.Message):
         if check_get_coin(message):
             dragon_get_coin_add(message.author.id)
             await msg_api.post_message(message.channel_id, random_add_coin(message))
-    return
+        return
 
 
 async def at_message_handler(event, message: qqbot.Message):
@@ -71,7 +71,8 @@ async def at_message_handler(event, message: qqbot.Message):
 
     # 签到
     if message.content.startswith(f'<@!{api.me().id}> /乞讨'):
-        pass
+        await msg_api.post_message(message.channel_id, divine(message))
+        return
 
     # 梭哈
     if message.content.startswith(f'<@!{api.me().id}> /梭哈'):
@@ -111,3 +112,8 @@ async def at_message_handler(event, message: qqbot.Message):
             f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
         await msg_api.post_message(message.channel_id, send)
         return
+
+    if message.content.startswith(f'<@!{api.me().id}> /test'):
+        if check_get_coin(message):
+            dragon_get_coin_add(message.author.id)
+            await msg_api.post_message(message.channel_id, random_add_coin(message))

@@ -99,6 +99,4 @@ def dragon_get_coin_add(user_id: str):
     """
     cursor.execute(sql_get_coin)
     conn.commit()
-    result = cursor.fetchall()[0][0]
     cursor.close()
-    return result
