@@ -101,10 +101,12 @@ async def at_message_handler(event, message: qqbot.Message):
     # 增加卡池
     if message.content.startswith(f'<@!{api.me().id}> /add_card'):
         await msg_api.post_message(message.channel_id, add(message))
+        return
 
     # 增加疯狂星期四
     if message.content.startswith(f'<@!{api.me().id}> /add_kfc'):
         await msg_api.post_message(message.channel_id, add_kfc_content(message))
+        return
 
     # 获取当前频道id
     if message.content.startswith(f'<@!{api.me().id}> /get_current_id'):
@@ -112,8 +114,3 @@ async def at_message_handler(event, message: qqbot.Message):
             f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
         await msg_api.post_message(message.channel_id, send)
         return
-
-    if message.content.startswith(f'<@!{api.me().id}> /test'):
-        if check_get_coin(message):
-            dragon_get_coin_add(message.author.id)
-            await msg_api.post_message(message.channel_id, random_add_coin(message))
