@@ -5,10 +5,20 @@ from qqbot import MessageReference
 
 from database.coin import coin_inquiry, add_coin
 
+from database.dragon import dragon_get_coin
+
 
 # 金币查询
 def coin_have(message: qqbot.Message):
     return qqbot.MessageSendRequest(f"<@{message.author.id}>你有{coin_inquiry(message.author.id)}枚金币", message.id)
+
+
+# 发言掉落金币次数查询
+def check_get_coin(message: qqbot.Message) -> bool:
+    if dragon_get_coin(message.author.id) >= 1:
+        return False
+    else:
+        return True
 
 
 # 随机获得金币

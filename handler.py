@@ -6,7 +6,7 @@ import random
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
-from service.coin import coin_have, random_add_coin
+from service.coin import coin_have, random_add_coin, check_get_coin
 from service.divine import divine
 from service.dragon import count_speak, dragon_today
 from service.english import daily
@@ -25,13 +25,14 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    # TODO:疯狂星期四提醒, 随机奖励限制
+    # TODO:疯狂星期四提醒
     msg_api = qqbot.AsyncMessageAPI(token, False)
     if hasattr(message, 'content'):
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")
     count_speak(message)
     if random.randint(1, 100) == 50:
-        await msg_api.post_message(message.channel_id, random_add_coin(message))
+        if check_get_coin(message):
+            await msg_api.post_message(message.channel_id, random_add_coin(message))
     return
 
 
@@ -65,6 +66,14 @@ async def at_message_handler(event, message: qqbot.Message):
     if message.content.startswith(f'<@!{api.me().id}> /占卜') or message.content.startswith(f'<@!{api.me().id}> /打卡'):
         await msg_api.post_message(message.channel_id, divine(message))
         return
+
+    # 签到
+    if message.content.startswith(f'<@!{api.me().id}> /乞讨'):
+        pass
+
+    # 梭哈
+    if message.content.startswith(f'<@!{api.me().id}> /梭哈'):
+        pass
 
     # 召唤
     if message.content.startswith(f'<@!{api.me().id}> /召唤'):
