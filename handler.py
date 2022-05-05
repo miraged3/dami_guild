@@ -8,7 +8,7 @@ from qqbot.core.util.yaml_util import YamlUtil
 
 from service.coin import coin_have, random_add_coin
 from service.divine import divine
-from service.dragon import count_speak
+from service.dragon import count_speak, dragon_today
 from service.english import daily
 from service.image import search
 from service.summon import summon, ranking, inquire, add
@@ -78,6 +78,11 @@ async def at_message_handler(event, message: qqbot.Message):
     # 排行榜
     if message.content.startswith(f'<@!{api.me().id}> /排行榜'):
         await msg_api.post_message(message.channel_id, ranking(message))
+        return
+
+    # 龙王查询
+    if message.content.startswith(f'<@!{api.me().id}> /水群'):
+        await msg_api.post_message(message.channel_id, dragon_today(message))
         return
 
     # 增加卡池

@@ -57,3 +57,18 @@ def add_dragon_today(user_id: str):
     cursor.execute(sql_add_today)
     conn.commit()
     cursor.close()
+
+
+# 查询发言排行
+def dragon_top():
+    conn.ping(reconnect=True)
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    cursor = conn.cursor()
+    sql_dragon_top = f"""
+    select user_id,speak_count from dragon where date='{current_date}' order by speak_count desc limit 10;
+    """
+    cursor.execute(sql_dragon_top)
+    conn.commit()
+    result = cursor.fetchall()
+    cursor.close()
+    return result
