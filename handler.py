@@ -6,6 +6,7 @@ import random
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
+from database.dragon import dragon_get_coin_add
 from service.coin import coin_have, random_add_coin, check_get_coin
 from service.divine import divine
 from service.dragon import count_speak, dragon_today
@@ -32,6 +33,7 @@ async def message_handler(event, message: qqbot.Message):
     count_speak(message)
     if random.randint(1, 100) == 50:
         if check_get_coin(message):
+            dragon_get_coin_add(message.author.id)
             await msg_api.post_message(message.channel_id, random_add_coin(message))
     return
 
