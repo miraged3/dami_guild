@@ -25,7 +25,7 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    # TODO:疯狂星期四提醒
+    # TODO:疯狂星期四提醒, 随机奖励限制
     msg_api = qqbot.AsyncMessageAPI(token, False)
     if hasattr(message, 'content'):
         qqbot.logger.info(f"发生事件{event}，收到消息：{message.content}")

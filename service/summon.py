@@ -14,7 +14,7 @@ from database.user import get_user_name
 def summon(message: qqbot.Message) -> MessageSendRequest:
     used_coin = -5
     if coin_inquiry(message.author.id) < abs(used_coin):
-        return qqbot.MessageSendRequest(f"<@{message.author.id}>召唤一次要{used_coin}金币，你余额已经不够啦~~", message.id)
+        return qqbot.MessageSendRequest(f"<@{message.author.id}>召唤一次要{abs(used_coin)}金币，你余额已经不够啦~~", message.id)
     chance = random.randint(1, 100)
     if chance > 85:
         star = 5
