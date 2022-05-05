@@ -11,6 +11,7 @@ from service.divine import divine
 from service.dragon import count_speak, dragon_today
 from service.english import daily
 from service.image import search
+from service.kfc import add_kfc_content
 from service.summon import summon, ranking, inquire, add
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "config.yaml"))
@@ -61,7 +62,7 @@ async def at_message_handler(event, message: qqbot.Message):
         return
 
     # 占卜/签到
-    if message.content.startswith(f'<@!{api.me().id}> /占卜'):
+    if message.content.startswith(f'<@!{api.me().id}> /占卜') or message.content.startswith(f'<@!{api.me().id}> /打卡'):
         await msg_api.post_message(message.channel_id, divine(message))
         return
 
@@ -88,6 +89,10 @@ async def at_message_handler(event, message: qqbot.Message):
     # 增加卡池
     if message.content.startswith(f'<@!{api.me().id}> /add_card'):
         await msg_api.post_message(message.channel_id, add(message))
+
+    # 增加疯狂星期四
+    if message.content.startswith(f'<@!{api.me().id}> /add_kfc'):
+        await msg_api.post_message(message.channel_id, add_kfc_content(message))
 
     # 获取当前频道id
     if message.content.startswith(f'<@!{api.me().id}> /get_current_id'):
