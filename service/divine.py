@@ -9,7 +9,7 @@ from database.divine import check_divine_today, add_divine_today
 
 def divine(message: qqbot.Message) -> MessageSendRequest:
     if check_divine_today(message.author.id):
-        return qqbot.MessageSendRequest(f"<@{message.author.id}>今天已经占卜过啦~~明天再来吧", message.id)
+        return qqbot.MessageSendRequest(f"<@{message.author.id}>今天已经打卡过啦~~明天再来吧", message.id)
     luck = random.randint(1, 100)
     if luck > 95:
         coin_number = 3
@@ -25,5 +25,5 @@ def divine(message: qqbot.Message) -> MessageSendRequest:
         description = '凶'
     add_divine_today(message.author.id, luck, coin_number)
     coin.add_coin(message.author.id, coin_number, '占卜')
-    return qqbot.MessageSendRequest(f"<@{message.author.id}><emoji:299>你今天的运势为~~{description}，获得了{coin_number}金币！",
+    return qqbot.MessageSendRequest(f"<@{message.author.id}><emoji:299>打卡成功，获得了{coin_number}金币！",
                                     message.id)
