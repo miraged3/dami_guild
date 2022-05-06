@@ -32,7 +32,7 @@ async def message_handler(event, message: qqbot.Message):
     if hasattr(message, 'content'):
         qqbot.logger.info(f"{message.author.username}：{message.content}")
     count_speak(message)
-    if random.randint(1, 100) == 50:
+    if random.randint(1, 100) < 4:
         if check_get_coin(message):
             dragon_get_coin_add(message.author.id)
             await msg_api.post_message(message.channel_id, random_add_coin(message))
