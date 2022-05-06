@@ -4,6 +4,7 @@ import os.path
 import random
 
 import qqbot
+from qqbot import GuildMember
 from qqbot.core.util.yaml_util import YamlUtil
 
 from database.dragon import dragon_get_coin_add
@@ -114,3 +115,7 @@ async def at_message_handler(event, message: qqbot.Message):
             f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
         await msg_api.post_message(message.channel_id, send)
         return
+
+
+def guild_member_event_handler(event, guild_member: GuildMember):
+    return

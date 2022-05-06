@@ -3,7 +3,7 @@ import os
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
-from handler import message_handler, at_message_handler
+from handler import message_handler, at_message_handler, guild_member_event_handler
 
 if __name__ == '__main__':
     config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "config.yaml"))
@@ -15,5 +15,8 @@ if __name__ == '__main__':
     # 被@的消息
     at_message_handler = qqbot.Handler(qqbot.HandlerType.AT_MESSAGE_EVENT_HANDLER, at_message_handler)
 
+    # 成员信息更新
+    guild_member_event_handler = qqbot.Handler(qqbot.HandlerType.GUILD_MEMBER_EVENT_HANDLER, guild_member_event_handler)
+
     # 注册消息处理器并启动
-    qqbot.async_listen_events(token, False, message_handler, at_message_handler)
+    qqbot.async_listen_events(token, False, message_handler, at_message_handler, guild_member_event_handler)
