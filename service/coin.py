@@ -24,7 +24,7 @@ def check_get_coin(message: qqbot.Message) -> bool:
 def random_add_coin(message: qqbot.Message):
     message_reference = MessageReference()
     message_reference.message_id = message.id
-    salt = random.randint(1, 14)
+    salt = random.randint(1, 15)
     reason = '发言随机金币'
     if salt == 1:
         coin = random.randint(1, 3)
@@ -81,4 +81,10 @@ def random_add_coin(message: qqbot.Message):
     elif salt == 14:
         coin = random.randint(1, 3)
         add_coin(message.author.id, coin, reason)
-        return qqbot.MessageSendRequest(f"我从Cyan那里偷来了{coin}个币，送你了，别跟他说哦！", message.id, message_reference=message_reference)
+        return qqbot.MessageSendRequest(f"我从Cyan那里偷来了{coin}个币，送你了，别跟他说哦！", message.id,
+                                        message_reference=message_reference)
+    elif salt == 15:
+        coin = random.randint(1, 3)
+        add_coin(message.author.id, coin, reason)
+        return qqbot.MessageSendRequest(f"{message.author.username}！我好喜欢你啊！为了你,我要给你{coin}金币！", message.id,
+                                        message_reference=message_reference)
