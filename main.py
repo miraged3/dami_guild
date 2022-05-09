@@ -3,7 +3,9 @@ import os
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
-from handler import message_handler, at_message_handler, guild_member_event_handler
+from handler.at_message import at_message_handler
+from handler.message import message_handler
+from handler.member_event import guild_member_event_handler
 
 #                  ___====-_  _-====___
 #            _--^^^#####//      \\#####^^^--_

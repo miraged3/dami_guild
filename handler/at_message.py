@@ -1,77 +1,18 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-import os.path
-import random
+import os
 
 import qqbot
-from qqbot import GuildMember
 from qqbot.core.util.yaml_util import YamlUtil
 
-from database.dragon import dragon_get_coin_add
-from service.coin import coin_have, random_add_coin, check_get_coin
+from service.coin import coin_have
 from service.divine import divine
-from service.dragon import count_speak, dragon_today
+from service.dragon import dragon_today
 from service.english import daily
 from service.image import search
 from service.kfc import add_kfc_content
-from service.stupid import ma_reply
-from service.summon import summon, ranking, inquire, add
+from service.summon import summon, inquire, ranking, add
 
-#
-#                       _oo0oo_
-#                      o8888888o
-#                      88" . "88
-#                      (| -_- |)
-#                      0\  =  /0
-#                    ___/`---'\___
-#                  .' \\|     |# '.
-#                 / \\|||  :  |||# \
-#                / _||||| -:- |||||- \
-#               |   | \\\  -  #/ |   |
-#               | \_|  ''\---/''  |_/ |
-#               \  .-\__  '-'  ___/-. /
-#             ___'. .'  /--.--\  `. .'___
-#          ."" '<  `.___\_<|>_/___.' >' "".
-#         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-#         \  \ `_.   \_ __\ /__ _/   .-` /  /
-#     =====`-.____`.___ \_____/___.-`___.-'=====
-#                       `=---='
-#
-#
-#     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-#               佛祖保佑         永无BUG
-#
-#
-#
-
-config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "config.yaml"))
+config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml"))
 token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
-
-
-async def message_handler(event, message: qqbot.Message):
-    """
-    频道消息处理
-    :param event: 事件类型
-    :param message: 事件对象（如监听消息是Message对象）
-    :return:
-    """
-    # TODO:疯狂星期四提醒
-    msg_api = qqbot.AsyncMessageAPI(token, False)
-    if hasattr(message, 'content'):
-        qqbot.logger.info(f"{message.author.username}：{message.content}")
-        if random.randint(1, 100) < 4:
-            if check_get_coin(message):
-                qqbot.logger.info('触发发言掉落金币: ' + message.author.username)
-                dragon_get_coin_add(message.author.id)
-                await msg_api.post_message(message.channel_id, random_add_coin(message))
-            return
-        if message.content.endswith('吗？') or message.content.endswith('吗') or message.content.endswith('吗?'):
-            if random.randint(1, 100) < 3:
-                qqbot.logger.info('触发人工智障: ' + message.author.username)
-                await msg_api.post_message(message.channel_id, ma_reply(message))
-    count_speak(message)
-    return
 
 
 async def at_message_handler(event, message: qqbot.Message):
@@ -150,7 +91,3 @@ async def at_message_handler(event, message: qqbot.Message):
             f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
         await msg_api.post_message(message.channel_id, send)
         return
-
-
-def guild_member_event_handler(event, guild_member: GuildMember):
-    return
