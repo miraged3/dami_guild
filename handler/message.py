@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os.path
 import random
+from datetime import datetime
 
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
@@ -9,6 +10,7 @@ from qqbot.core.util.yaml_util import YamlUtil
 from database.dragon import dragon_get_coin_add
 from service.coin import random_add_coin, check_get_coin
 from service.dragon import count_speak
+from service.kfc import random_kfc_notice
 from service.stupid import ma_reply
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml"))
@@ -22,8 +24,8 @@ async def message_handler(event, message: qqbot.Message):
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
-    # TODO:疯狂星期四提醒
     msg_api = qqbot.AsyncMessageAPI(token, False)
+    # 消息是否包含文本
     if hasattr(message, 'content'):
         qqbot.logger.info(f"{message.author.username}：{message.content}")
         if random.randint(1, 100) < 4:
@@ -36,5 +38,8 @@ async def message_handler(event, message: qqbot.Message):
             if random.randint(1, 100) < 3:
                 qqbot.logger.info('触发人工智障: ' + message.author.username)
                 await msg_api.post_message(message.channel_id, ma_reply(message))
+        if datetime.today().weekday() == 3 and random.randint(1, 100) < 2 and message.channel_id == '1356661':
+            qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
+            await msg_api.post_message(message.channel_id, random_kfc_notice(message))
     count_speak(message)
     return

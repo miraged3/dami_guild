@@ -8,7 +8,7 @@ from service.divine import divine
 from service.dragon import dragon_today
 from service.english import daily
 from service.image import search
-from service.kfc import add_kfc_content
+from service.kfc import add_kfc_content, random_kfc_notice
 from service.summon import summon, inquire, ranking, add
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml"))
@@ -90,4 +90,9 @@ async def at_message_handler(event, message: qqbot.Message):
         send = qqbot.MessageSendRequest(
             f'current guild:{message.guild_id}\ncurrent channel:{message.channel_id}', message.id)
         await msg_api.post_message(message.channel_id, send)
+        return
+
+    # 测试疯狂星期四
+    if message.content.startswith(f'<@!{api.me().id}> /get_random_kfc'):
+        await msg_api.post_message(message.channel_id, random_kfc_notice(message))
         return

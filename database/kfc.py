@@ -23,3 +23,16 @@ def add_kfc(content: str):
     cursor.execute(sql_add_kfc)
     conn.commit()
     cursor.close()
+
+
+def get_all() -> tuple:
+    conn.ping(reconnect=True)
+    cursor = conn.cursor()
+    sql_get_kfc = f"""
+    select content from kfc;
+    """
+    cursor.execute(sql_get_kfc)
+    conn.commit()
+    result = cursor.fetchall()
+    cursor.close()
+    return result
