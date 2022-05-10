@@ -2,23 +2,24 @@ import os
 
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
+from qqbot.model.ws_context import WsContext
 
 from service.coin import coin_have
 from service.divine import divine
 from service.dragon import dragon_today, dragon_add_coin
 from service.english import daily
 from service.image import search
-from service.kfc import add_kfc_content, random_kfc_notice
+from service.kfc import add_kfc_content
 from service.summon import summon, inquire, ranking, add
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml"))
 token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
 
 
-async def at_message_handler(event, message: qqbot.Message):
+async def at_message_handler(context: WsContext, message: qqbot.Message):
     """
     频道被@消息处理
-    :param event: 事件类型
+    :param context:
     :param message: 事件对象（如监听消息是Message对象）
     """
     msg_api = qqbot.AsyncMessageAPI(token, False)

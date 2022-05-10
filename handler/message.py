@@ -6,6 +6,7 @@ from datetime import datetime
 
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
+from qqbot.model.ws_context import WsContext
 
 from database.dragon import dragon_get_coin_add
 from service.coin import random_add_coin, check_get_coin
@@ -17,10 +18,10 @@ config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml")
 token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
 
 
-async def message_handler(event, message: qqbot.Message):
+async def message_handler(context: WsContext, message: qqbot.Message):
     """
     频道消息处理
-    :param event: 事件类型
+    :param context:
     :param message: 事件对象（如监听消息是Message对象）
     :return:
     """
