@@ -3,6 +3,7 @@ import os
 import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
+from cronjob.main import scheduler
 from handler.at_message import at_message_handler
 from handler.message import message_handler
 from handler.member_event import guild_member_event_handler
@@ -38,6 +39,9 @@ if __name__ == '__main__':
 
     # 成员信息更新
     guild_member_event_handler = qqbot.Handler(qqbot.HandlerType.GUILD_MEMBER_EVENT_HANDLER, guild_member_event_handler)
+
+    # 定时任务
+    scheduler.start()
 
     # 注册消息处理器并启动
     qqbot.async_listen_events(token, False, message_handler, at_message_handler, guild_member_event_handler)

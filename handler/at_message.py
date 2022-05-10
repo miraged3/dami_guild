@@ -5,7 +5,7 @@ from qqbot.core.util.yaml_util import YamlUtil
 
 from service.coin import coin_have
 from service.divine import divine
-from service.dragon import dragon_today
+from service.dragon import dragon_today, dragon_add_coin
 from service.english import daily
 from service.image import search
 from service.kfc import add_kfc_content, random_kfc_notice
@@ -92,7 +92,7 @@ async def at_message_handler(event, message: qqbot.Message):
         await msg_api.post_message(message.channel_id, send)
         return
 
-    # 测试疯狂星期四
-    if message.content.startswith(f'<@!{api.me().id}> /get_random_kfc'):
-        await msg_api.post_message(message.channel_id, random_kfc_notice(message))
+    # 测试龙王
+    if message.content.startswith(f'<@!{api.me().id}> /get_dragon'):
+        await msg_api.post_message(message.channel_id, dragon_add_coin())
         return

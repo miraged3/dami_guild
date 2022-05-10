@@ -1,6 +1,7 @@
 import qqbot
 
-from database.dragon import check_dragon_exists, add_dragon_once, add_dragon_today, dragon_top
+from database.coin import add_coin
+from database.dragon import check_dragon_exists, add_dragon_once, add_dragon_today, dragon_top, dragon_top_today
 from database.user import check_user_exists, add_user_info, get_user_name
 
 
@@ -22,3 +23,11 @@ def dragon_today(message: qqbot.Message):
     for person in data:
         result = result + '\n' + get_user_name(person[0]) + ' ' + str(person[1]) + '条'
     return qqbot.MessageSendRequest(result, message.id)
+
+
+def dragon_add_coin():
+    dragon_user_id = dragon_top_today()[0][0]
+    dragon_username = get_user_name(dragon_user_id)
+    dragon_speak_count = dragon_top_today()[0][1]
+    add_coin(dragon_user_id, 5, '龙王发放5金币')
+    return qqbot.MessageSendRequest(f'今日龙王为~~{dragon_username}<emoji:128166>，狂水了{dragon_speak_count}条消息！送上五个金币。')

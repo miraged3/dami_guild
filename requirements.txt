@@ -1,4 +1,6 @@
-pillow
-qq-bot
-requests
-PyMySQL
+pillow~=9.1.0
+qq-bot==0.8.2
+requests~=2.27.1
+PyMySQL~=1.0.2
+APScheduler~=3.9.1
+pytz~=2022.1

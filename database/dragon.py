@@ -100,3 +100,18 @@ def dragon_get_coin_add(user_id: str):
     cursor.execute(sql_get_coin)
     conn.commit()
     cursor.close()
+
+
+# 查询昨日龙王
+def dragon_top_today():
+    conn.ping(reconnect=True)
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+    cursor = conn.cursor()
+    sql_dragon_top = f"""
+    select user_id,speak_count from dragon where date='{yesterday}' order by speak_count desc limit 1;
+    """
+    cursor.execute(sql_dragon_top)
+    conn.commit()
+    result = cursor.fetchall()
+    cursor.close()
+    return result
