@@ -103,9 +103,9 @@ def dragon_get_coin_add(user_id: str):
 
 
 # 查询昨日龙王
-def dragon_top_today():
+def dragon_top_yesterday():
     conn.ping(reconnect=True)
-    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+    yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     cursor = conn.cursor()
     sql_dragon_top = f"""
     select user_id,speak_count from dragon where date='{yesterday}' order by speak_count desc limit 1;

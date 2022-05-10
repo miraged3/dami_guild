@@ -41,5 +41,8 @@ async def message_handler(event, message: qqbot.Message):
         if datetime.today().weekday() == 3 and random.randint(1, 100) < 2 and message.channel_id == '1356661':
             qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
             await msg_api.post_message(message.channel_id, random_kfc_notice(message))
+    elif hasattr(message, 'attachments'):
+        for attachment in message.attachments:
+            qqbot.logger.info(f'{message.author.username}：{attachment.url}')
     count_speak(message)
     return

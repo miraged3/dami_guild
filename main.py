@@ -1,12 +1,14 @@
 import os
 
 import qqbot
+from apscheduler.schedulers.background import BackgroundScheduler
+from pytz import utc
 from qqbot.core.util.yaml_util import YamlUtil
 
-from cronjob.main import scheduler
+from cronjob.main import cron_add_dragon_coin
 from handler.at_message import at_message_handler
-from handler.message import message_handler
 from handler.member_event import guild_member_event_handler
+from handler.message import message_handler
 
 #                  ___====-_  _-====___
 #            _--^^^#####//      \\#####^^^--_
@@ -41,6 +43,8 @@ if __name__ == '__main__':
     guild_member_event_handler = qqbot.Handler(qqbot.HandlerType.GUILD_MEMBER_EVENT_HANDLER, guild_member_event_handler)
 
     # 定时任务
+    scheduler = BackgroundScheduler(timezone=utc)
+    scheduler.add_job(cron_add_dragon_coin, 'cron', hour='0', minute='32')
     scheduler.start()
 
     # 注册消息处理器并启动
