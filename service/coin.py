@@ -77,7 +77,7 @@ def random_add_coin(message: qqbot.Message):
     elif salt == 13:
         coin = random.randint(1, 3)
         add_coin(message.author.id, coin, reason)
-        return qqbot.MessageSendRequest(f"你能不能教我茴字的{coin}种写法？我用一个币换一种", message.id, message_reference=message_reference)
+        return qqbot.MessageSendRequest(f"好棒哦，给你{coin}金币", message.id, message_reference=message_reference)
     elif salt == 14:
         coin = random.randint(1, 3)
         add_coin(message.author.id, coin, reason)
