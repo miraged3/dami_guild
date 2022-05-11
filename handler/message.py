@@ -36,7 +36,7 @@ async def message_handler(event, message: qqbot.Message):
             return
         if message.content.endswith('吗？') or message.content.endswith('吗') or message.content.endswith('吗?'):
             if random.randint(1, 100) < 3:
-                qqbot.logger.info('触发人工智障: ' + message.author.username)
+                qqbot.logger.info('触发人工智障: ' + message.content)
                 await msg_api.post_message(message.channel_id, ma_reply(message))
         if datetime.today().weekday() == 3 and random.randint(1, 100) < 2 and message.channel_id == '1356661':
             qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
