@@ -4,7 +4,7 @@ import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
 from service.coin import coin_have
-from service.divine import divine
+from service.divine import divine, beg
 from service.dragon import dragon_today, dragon_add_coin
 from service.english import daily
 from service.image import search
@@ -41,14 +41,14 @@ async def at_message_handler(event, message: qqbot.Message):
         await msg_api.post_message(message.channel_id, coin_have(message))
         return
 
-    # 占卜/签到
+    # 签到
     if message.content.startswith(f'<@!{api.me().id}> /占卜') or message.content.startswith(f'<@!{api.me().id}> /打卡'):
         await msg_api.post_message(message.channel_id, divine(message))
         return
 
-    # 签到
+    # 乞讨
     if message.content.startswith(f'<@!{api.me().id}> /乞讨'):
-        await msg_api.post_message(message.channel_id, divine(message))
+        await msg_api.post_message(message.channel_id, beg(message))
         return
 
     # 梭哈
