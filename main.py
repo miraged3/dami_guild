@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     # 定时任务
     scheduler = BackgroundScheduler(timezone=pytz.timezone('Asia/Shanghai'))
-    scheduler.add_job(cron_add_dragon_coin, 'cron', hour='0', minute='0')
+    scheduler.add_job(cron_add_dragon_coin, 'cron', hour='8', minute='1')
     scheduler.start()
 
     # 注册消息处理器并启动
