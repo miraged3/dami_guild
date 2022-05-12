@@ -28,7 +28,7 @@ from handler.message import message_handler
 #                   (vvv(VVV)(VVV)vvv)
 #                  神兽保佑    神龙在此
 #                代码无BUG!    代码坚不可摧！
-#                      SOLID CODE
+#                       SOLID CODE
 if __name__ == '__main__':
     config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "config.yaml"))
     token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
