@@ -27,19 +27,19 @@ def beg(message: qqbot.Message) -> MessageSendRequest:
     if check_divine_today(message.author.id):
         return qqbot.MessageSendRequest(f"<@{message.author.id}><emoji:32>要过饭了还想要？没完没了了是吧？", message.id)
     luck = random.randint(1, 100)
-    if luck > 99:
+    if luck > 97:
         coin_number = 5
         comment = '我看你骨骼惊奇天赋异禀将来必成大器，这5金币就送给你！'
-    elif luck > 94:
+    elif luck > 90:
         coin_number = 4
         comment = '好可怜一孩子，快收下这4金币'
-    elif luck > 84:
+    elif luck > 79:
         coin_number = 3
         comment = '好吧好吧，3金币给你了~~'
-    elif luck > 74:
+    elif luck > 68:
         coin_number = 2
         comment = '你有点烦诶，2金币拿去'
-    elif luck > 44:
+    elif luck > 36:
         coin_number = 1
         comment = '怎么又来要饭了？算了给你个币吧'
     else:
