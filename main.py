@@ -5,7 +5,7 @@ import qqbot
 from apscheduler.schedulers.background import BackgroundScheduler
 from qqbot.core.util.yaml_util import YamlUtil
 
-from cronjob.main import cron_add_dragon_coin
+from cronjob.dragon import cron_add_dragon_coin
 from handler.at_message import at_message_handler
 from handler.member_event import guild_member_event_handler
 from handler.message import message_handler
