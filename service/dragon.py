@@ -22,6 +22,8 @@ def dragon_today(message: qqbot.Message):
     result = '今日水群统计: '
     for person in data:
         result = result + '\n' + get_user_name(person[0]) + ' ' + str(person[1]) + '条'
+    result = result.replace('.', ' ')
+    qqbot.logger.info(result)
     return qqbot.MessageSendRequest(result, message.id)
 
 

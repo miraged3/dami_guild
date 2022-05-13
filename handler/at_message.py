@@ -42,7 +42,7 @@ async def at_message_handler(event, message: qqbot.Message):
         return
 
     # 签到
-    if message.content.startswith(f'<@!{api.me().id}> /占卜') or message.content.startswith(f'<@!{api.me().id}> /打卡'):
+    if message.content.startswith(f'<@!{api.me().id}> /打卡'):
         await msg_api.post_message(message.channel_id, divine(message))
         return
 
