@@ -52,7 +52,7 @@ def add_dragon_today(user_id: str):
     cursor = conn.cursor()
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
     sql_add_today = f"""
-    insert into dragon(user_id, speak_count, date, get_coin) values ('{user_id}',1,'{current_date}',0);
+    insert into dragon(user_id, speak_count, date, get_coin, share_coin) values ('{user_id}',1,'{current_date}',0,0);
     """
     cursor.execute(sql_add_today)
     conn.commit()
@@ -115,3 +115,31 @@ def dragon_top_yesterday():
     result = cursor.fetchall()
     cursor.close()
     return result
+
+
+# 查询好物分享掉落金币次数
+def share_drop_coin_times(user_id: str):
+    conn.ping(reconnect=True)
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    cursor = conn.cursor()
+    sql_check_share_coin = f"""
+    select share_coin from dragon where user_id='{user_id}' and date='{current_date}';
+    """
+    cursor.execute(sql_check_share_coin)
+    conn.commit()
+    result = cursor.fetchall()
+    cursor.close()
+    return int(result[0][0])
+
+
+# 增加好物分享掉落金币次数
+def share_drop_coin_add(user_id: str):
+    conn.ping(reconnect=True)
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    cursor = conn.cursor()
+    sql_get_coin = f"""
+    update dragon set share_coin=share_coin+1 where user_id='{user_id}' and date='{current_date}';
+    """
+    cursor.execute(sql_get_coin)
+    conn.commit()
+    cursor.close()

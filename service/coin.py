@@ -4,7 +4,7 @@ import qqbot
 from qqbot import MessageReference
 
 from database.coin import coin_inquiry, add_coin
-from database.dragon import dragon_get_coin
+from database.dragon import dragon_get_coin, share_drop_coin_times, share_drop_coin_add
 
 
 # 金币查询
@@ -18,6 +18,15 @@ def check_get_coin(message: qqbot.Message) -> bool:
         return False
     else:
         return True
+
+
+# 好物分享获得金币
+def share_get_coin(message: qqbot.Message):
+    times = share_drop_coin_times(message.author.id)
+    if 0 <= times < 3:
+        share_drop_coin_add(message.author.id)
+        qqbot.logger.info(f'{message.author.username}通过好物分享获得1金币')
+        add_coin(message.author.id, 1, '好物分享')
 
 
 # 随机获得金币

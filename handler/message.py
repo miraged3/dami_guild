@@ -7,7 +7,7 @@ import qqbot
 from qqbot.core.util.yaml_util import YamlUtil
 
 from database.dragon import dragon_get_coin_add
-from service.coin import random_add_coin, check_get_coin
+from service.coin import random_add_coin, check_get_coin, share_get_coin
 from service.dragon import count_speak
 from service.kfc import random_kfc_notice
 from service.stupid import ma_reply
@@ -41,6 +41,9 @@ async def message_handler(event, message: qqbot.Message):
             qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
             await msg_api.post_message(message.channel_id, random_kfc_notice(message))
     elif hasattr(message, 'attachments'):
+        if message.channel_id == '1356645' and len(message.attachments) == 1:
+            if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/'):
+                share_get_coin(message)
         for attachment in message.attachments:
             qqbot.logger.info(f'{message.author.username}：{attachment.url}')
     count_speak(message)
