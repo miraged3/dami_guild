@@ -41,8 +41,10 @@ async def message_handler(event, message: qqbot.Message):
             qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
             await msg_api.post_message(message.channel_id, random_kfc_notice(message))
     elif hasattr(message, 'attachments'):
-        if message.channel_id == '1356645' and len(message.attachments) == 1:
-            if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/'):
+        if message.channel_id == '1356645' or message.channel_id == '1369122':
+            if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/') \
+                    or message.attachments[0].url.startswith('[分享]') \
+                    or message.attachments[0].url.startswith('当前版本不支持'):
                 share_get_coin(message)
         for attachment in message.attachments:
             qqbot.logger.info(f'{message.author.username}：{attachment.url}')

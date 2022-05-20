@@ -48,4 +48,4 @@ if __name__ == '__main__':
     scheduler.start()
 
     # 注册消息处理器并启动
-    qqbot.async_listen_events(token, False, message_handler, at_message_handler, guild_member_event_handler)
+    qqbot.async_listen_events(token, False, message_handler, at_message_handler)
