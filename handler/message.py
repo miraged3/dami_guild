@@ -27,6 +27,9 @@ async def message_handler(event, message: qqbot.Message):
     # 消息是否包含文本
     if hasattr(message, 'content'):
         qqbot.logger.info(f"{message.author.username}：{message.content}")
+        if message.channel_id == '1356645' or message.channel_id == '1369122':
+            if message.content.startswith('[分享]') or message.content.startswith('当前版本不支持'):
+                share_get_coin(message)
         if random.randint(1, 100) < 4:
             if check_get_coin(message):
                 qqbot.logger.info('触发发言掉落金币: ' + message.author.username)
@@ -42,9 +45,7 @@ async def message_handler(event, message: qqbot.Message):
             await msg_api.post_message(message.channel_id, random_kfc_notice(message))
     elif hasattr(message, 'attachments'):
         if message.channel_id == '1356645' or message.channel_id == '1369122':
-            if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/') \
-                    or message.attachments[0].url.startswith('[分享]') \
-                    or message.attachments[0].url.startswith('当前版本不支持'):
+            if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/'):
                 share_get_coin(message)
         for attachment in message.attachments:
             qqbot.logger.info(f'{message.author.username}：{attachment.url}')
