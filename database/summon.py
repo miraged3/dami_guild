@@ -33,7 +33,7 @@ def already_summon(user_id: str):
     conn.ping(reconnect=True)
     cursor = conn.cursor()
     sql_already_summon = f"""
-    select card_id,card_name from summon where user_id='{user_id}';
+    select card_id,card_name from summon where user_id='{user_id}' order by time desc;
     """
     cursor.execute(sql_already_summon)
     result = cursor.fetchall()

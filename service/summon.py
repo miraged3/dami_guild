@@ -45,10 +45,17 @@ def summon(message: qqbot.Message) -> MessageSendRequest:
 
 
 def inquire(message: qqbot.Message) -> MessageSendRequest:
-    result = '你已经抽到了：'
     data = already_summon(message.author.id)
+    if len(data) < 10:
+        result = '你已经抽到了：'
+    else:
+        result = '你最后抽到的十张卡为：'
+    i: int = 0
     for card in data:
+        if i >= 10:
+            break
         result = result + '\n' + str(card[0]) + '：' + card[1]
+        i = i + 1
     return qqbot.MessageSendRequest(result, message.id)
 
 
@@ -61,14 +68,14 @@ def ranking(message: qqbot.Message) -> MessageSendRequest:
 
 
 def add(message: qqbot.Message) -> MessageSendRequest:
-    splited_content = message.content.split(' ')
-    card_name = splited_content[2]
-    star = int(splited_content[3])
+    split_content = message.content.split(' ')
+    card_name = split_content[2]
+    star = int(split_content[3])
     url = 'https://' + message.attachments[0].url
     filename = f"/home/wwwroot/default/dami_images/cards/{message.id}.jpg"
     urllib.request.urlretrieve(url, filename)
-    if len(splited_content) == 5:
-        detail = splited_content[4]
+    if len(split_content) == 5:
+        detail = split_content[4]
         card_id = add_card(card_name, star, detail, message.id)
     else:
         card_id = add_card(card_name, star, '暂无', message.id)
