@@ -30,6 +30,7 @@ async def message_handler(event, message: qqbot.Message):
         if message.channel_id == '1356645' or message.channel_id == '1369122':
             if message.content.startswith('[分享]') or message.content.startswith('当前版本不支持'):
                 share_get_coin(message)
+            return
         if random.randint(1, 100) < 4:
             if check_get_coin(message):
                 qqbot.logger.info('触发发言掉落金币: ' + message.author.username)
@@ -40,9 +41,16 @@ async def message_handler(event, message: qqbot.Message):
             if random.randint(1, 100) < 3:
                 qqbot.logger.info('触发人工智障: ' + message.content)
                 await msg_api.post_message(message.channel_id, ma_reply(message))
-        if datetime.today().weekday() == 3 and random.randint(1, 1000) < 8 and message.channel_id == '1356661':
+            return
+        if datetime.today().weekday() == 3 and random.randint(1, 1000) < 3 and message.channel_id == '1356661':
             qqbot.logger.info('触发疯狂星期四: ' + message.author.username)
             await msg_api.post_message(message.channel_id, random_kfc_notice(message))
+            return
+        if random.randint(1, 100) < 2 and message.channel_id == '1356661':
+            qqbot.logger.info('触发复读: ' + message.author.username)
+            await msg_api.post_message(message.channel_id, qqbot.MessageSendRequest(message.content, message.id))
+            return
+
     elif hasattr(message, 'attachments'):
         if message.channel_id == '1356645' or message.channel_id == '1369122':
             if message.attachments[0].url.startswith('gchat.qpic.cn/qmeetpic/'):
