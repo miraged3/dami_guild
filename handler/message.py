@@ -10,7 +10,7 @@ from database.dragon import dragon_get_coin_add
 from service.coin import random_add_coin, check_get_coin, share_get_coin
 from service.dragon import count_speak
 from service.kfc import random_kfc_notice
-from service.stupid import ma_reply
+from service.stupid import ma_reply, repeat
 
 config = YamlUtil.read(os.path.join(os.path.dirname(__file__), "../config.yaml"))
 token = qqbot.Token(config["token"]["appid"], config["token"]["token"])
@@ -48,7 +48,7 @@ async def message_handler(event, message: qqbot.Message):
             return
         if random.randint(1, 100) < 2 and message.channel_id == '1356661':
             qqbot.logger.info('触发复读: ' + message.author.username)
-            await msg_api.post_message(message.channel_id, qqbot.MessageSendRequest(message.content, message.id))
+            await msg_api.post_message(message.channel_id, repeat(message))
             return
 
     elif hasattr(message, 'attachments'):
