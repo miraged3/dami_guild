@@ -29,7 +29,7 @@ async def message_handler(event, message: qqbot.Message):
     if hasattr(message, 'content'):
         qqbot.logger.info(f"{message.author.username}：{message.content}")
         if message.channel_id == '1356661' and len(message.content) > 6:
-            if random.randint(1, 100) < 7 or message.content.startswith('大米'):
+            if random.randint(1, 100) < 2 or message.content.startswith('大米'):
                 if message.content.startswith('大米'):
                     message.content = message.content[2:]
                 qqbot.logger.info('触发ChatGPT: ' + message.author.username)
