@@ -13,4 +13,4 @@ def ask_gpt(message: qqbot.Message):
     message_reference.message_id = message.id
     chat = Chat(email=config["chatgpt"]["email"], password=config["chatgpt"]["password"],
                 proxies="http://localhost:7890")
-    return qqbot.MessageSendRequest(chat.ask(message), message.id, message_reference=message_reference)
+    return qqbot.MessageSendRequest(chat.ask(message.content), message.id, message_reference=message_reference)
